@@ -73,7 +73,13 @@ class CSV {
                     foreach ($fields as $field)
                     {
                         // slug headers, blanks not allowed
-                        $columns[] = Str::slug($field ? $field : uniqid(), '_');
+                        $column = Str::slug($field ? $field : uniqid(), '_');
+                        
+                        // handle duplicate column names
+                        if( in_array($column, $columns))
+                            $columns[] = $column . uniqid();
+                        else
+                            $columns[] = $column;
                     }
                 }
                 
